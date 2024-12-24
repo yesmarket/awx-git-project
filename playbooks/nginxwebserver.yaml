@@ -1,0 +1,46 @@
+---
+- name: Install and configure Nginx web server
+  hosts: all
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Nginx package
+      apt:
+        name: nginx
+        state: present
+
+    - name: Start and enable Nginx service
+      systemd:
+        name: nginx
+        state: started
+        enabled: yes
+
+    - name: Create a custom index.html page
+      copy:
+        content: |
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <title>Welcome to My Nginx Web Server!</title>
+          </head>
+          <body>
+              <h1>Hello, this is my Nginx web server!</h1>
+          </body>
+          </html>
+        dest: /var/www/html/index.html
+        owner: www-data
+        group: www-data
+        mode: '0644'
+
+    - name: Ensure Nginx is listening on all interfaces
+      lineinfile:
+        path: /etc/nginx/sites-available/default
+        regexp: '^listen 80'
+        line: 'listen 0.0.0.0:80;'
+
+    - name: Reload Nginx to apply changes
+      systemd:
+        name: nginx
+        state: reloaded
