@@ -1,7 +1,5 @@
 ---
-- name: Install Nginx on Ubuntu 22.04
-  hosts: devOps
-  become: yes
+- hosts: all
   tasks:
     - name: Update apt cache
       apt:
