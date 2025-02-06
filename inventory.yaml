@@ -1,7 +1,7 @@
 ---
 all:
   hosts:
-    ubuntu-host:
-      ansible_host: 192.168.1.6
-    centos-host:
-      ansible_host: 192.168.1.18
+    test1:
+      ansible_host: 10.0.0.22
+    test2:
+      ansible_host: 10.0.0.21
