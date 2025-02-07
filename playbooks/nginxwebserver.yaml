@@ -1,6 +1,7 @@
 ---
 - name: Set up Nginx web server and deploy a default web page
   hosts: all  # Replace with your target group or host name
+  become: true
   tasks:
     - name: Install Nginx package
       apt:
